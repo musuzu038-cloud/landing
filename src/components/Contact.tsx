@@ -21,19 +21,19 @@ const Contact = () => {
     {
       icon: Phone,
       label: "Телефон",
-      value: "+7 (495) 123-45-67",
-      href: "tel:+74951234567",
+      value: "+7 968 724-42-79",
+      href: "tel:+79687244279",
     },
     {
       icon: Mail,
       label: "Email",
-      value: "info@tochka-sborki.ru",
-      href: "mailto:info@tochka-sborki.ru",
+      value: "fandangomedia@bk.ru",
+      href: "mailto:fandangomedia@bk.ru",
     },
     {
       icon: MapPin,
       label: "Адрес",
-      value: "Москва и Московская область",
+      value: "г. Москва, ул. Артюхиной 26А",
       href: null,
     },
     {
