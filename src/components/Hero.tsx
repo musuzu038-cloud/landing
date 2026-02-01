@@ -1,15 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
-
 const Hero = () => {
-  const features = [
-    "Бесплатный выезд мастера",
-    "Гарантия на все работы",
-    "Работаем без выходных",
-  ];
-
-  return (
-    <section className="relative min-h-screen flex items-center hero-gradient overflow-hidden">
+  const features = ["Бесплатный выезд мастера", "Гарантия на все работы", "Работаем без выходных"];
+  return <section className="relative min-h-screen flex items-center hero-gradient overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-10 w-72 h-72 bg-accent rounded-full blur-3xl" />
@@ -25,7 +18,7 @@ const Hero = () => {
               Более 5000 довольных клиентов
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary-foreground leading-tight mb-6">
+            <h1 className="md:text-5xl lg:text-6xl font-extrabold text-primary-foreground leading-tight mb-6 text-3xl">
               Профессиональная сборка мебели{" "}
               <span className="text-gradient">с гарантией</span>
             </h1>
@@ -37,15 +30,10 @@ const Hero = () => {
 
             {/* Features List */}
             <ul className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center lg:justify-start mb-10">
-              {features.map((feature) => (
-                <li
-                  key={feature}
-                  className="flex items-center gap-2 text-primary-foreground/90"
-                >
+              {features.map(feature => <li key={feature} className="flex items-center gap-2 text-primary-foreground/90">
                   <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
                   <span className="font-medium">{feature}</span>
-                </li>
-              ))}
+                </li>)}
             </ul>
 
             {/* CTA Buttons */}
@@ -74,7 +62,9 @@ const Hero = () => {
                 <div className="text-sm text-muted-foreground">лет опыта</div>
               </div>
 
-              <div className="absolute bottom-8 right-8 bg-card/95 backdrop-blur-sm rounded-2xl p-5 shadow-xl animate-float" style={{ animationDelay: "0.5s" }}>
+              <div className="absolute bottom-8 right-8 bg-card/95 backdrop-blur-sm rounded-2xl p-5 shadow-xl animate-float" style={{
+              animationDelay: "0.5s"
+            }}>
                 <div className="text-3xl font-bold text-accent">500+</div>
                 <div className="text-sm text-muted-foreground">заказов в месяц</div>
               </div>
@@ -94,8 +84,6 @@ const Hero = () => {
           <div className="w-1.5 h-3 bg-primary-foreground/50 rounded-full" />
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Hero;
