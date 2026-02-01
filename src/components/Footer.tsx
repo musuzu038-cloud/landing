@@ -1,4 +1,4 @@
-import { Wrench } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -8,13 +8,8 @@ const Footer = () => {
       <div className="container-custom">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-lg accent-gradient flex items-center justify-center">
-              <Wrench className="w-5 h-5 text-accent-foreground" />
-            </div>
-            <span className="font-bold text-lg text-background">
-              Точка Сборки
-            </span>
+          <a href="#" className="flex items-center group">
+            <img src={logo} alt="Точка Сборки" className="h-12 w-auto" />
           </a>
 
           {/* Links */}
