@@ -1,20 +1,104 @@
 import { Button } from "@/components/ui/button";
-import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
-import { useState } from "react";
+import { Phone, Mail, MapPin, Clock, Send, RefreshCw } from "lucide-react";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+
+const generateCaptcha = () => {
+  const num1 = Math.floor(Math.random() * 10) + 1;
+  const num2 = Math.floor(Math.random() * 10) + 1;
+  return { question: `${num1} + ${num2} = ?`, answer: num1 + num2 };
+};
 
 const Contact = () => {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [captcha, setCaptcha] = useState(generateCaptcha());
+  const [captchaInput, setCaptchaInput] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const refreshCaptcha = () => {
+    setCaptcha(generateCaptcha());
+    setCaptchaInput("");
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
-    alert("Спасибо! Мы свяжемся с вами в ближайшее время.");
-    setFormData({ name: "", phone: "", message: "" });
+
+    // Validate captcha
+    if (parseInt(captchaInput) !== captcha.answer) {
+      toast({
+        title: "Ошибка",
+        description: "Неправильный ответ на вопрос. Попробуйте ещё раз.",
+        variant: "destructive",
+      });
+      refreshCaptcha();
+      return;
+    }
+
+    // Validate inputs
+    if (!formData.name.trim() || formData.name.length > 100) {
+      toast({
+        title: "Ошибка",
+        description: "Введите корректное имя (до 100 символов)",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!formData.phone.trim() || formData.phone.length > 50) {
+      toast({
+        title: "Ошибка",
+        description: "Введите корректный номер телефона",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (formData.message.length > 1000) {
+      toast({
+        title: "Ошибка",
+        description: "Сообщение слишком длинное (максимум 1000 символов)",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke("send-telegram", {
+        body: {
+          name: formData.name.trim(),
+          phone: formData.phone.trim(),
+          message: formData.message.trim(),
+        },
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Успешно!",
+        description: "Спасибо! Мы свяжемся с вами в ближайшее время.",
+      });
+
+      setFormData({ name: "", phone: "", message: "" });
+      setCaptchaInput("");
+      refreshCaptcha();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast({
+        title: "Ошибка",
+        description: "Не удалось отправить заявку. Позвоните нам по телефону.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -110,6 +194,7 @@ const Contact = () => {
                   className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
                   placeholder="Иван Иванов"
                   required
+                  maxLength={100}
                 />
               </div>
 
@@ -130,6 +215,7 @@ const Contact = () => {
                   className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
                   placeholder="+7 (___) ___-__-__"
                   required
+                  maxLength={50}
                 />
               </div>
 
@@ -149,11 +235,47 @@ const Contact = () => {
                   rows={4}
                   className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all resize-none"
                   placeholder="Опишите какая мебель и какие работы нужны..."
+                  maxLength={1000}
                 />
               </div>
 
-              <Button type="submit" variant="hero" size="lg" className="w-full">
-                Отправить заявку
+              {/* Captcha */}
+              <div>
+                <label
+                  htmlFor="captcha"
+                  className="block text-sm font-medium text-foreground mb-2"
+                >
+                  Проверка: {captcha.question}
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    id="captcha"
+                    value={captchaInput}
+                    onChange={(e) => setCaptchaInput(e.target.value)}
+                    className="flex-1 px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
+                    placeholder="Ваш ответ"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={refreshCaptcha}
+                    className="px-3 py-3 rounded-lg border border-border bg-background text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                    aria-label="Обновить вопрос"
+                  >
+                    <RefreshCw className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+
+              <Button
+                type="submit"
+                variant="hero"
+                size="lg"
+                className="w-full"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Отправка..." : "Отправить заявку"}
                 <Send className="w-5 h-5" />
               </Button>
 
