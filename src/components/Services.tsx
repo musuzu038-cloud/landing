@@ -66,7 +66,7 @@ const Services = () => {
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Icon */}
-              <div className="w-14 h-14 rounded-xl accent-gradient flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <div className="w-14 h-14 rounded-xl accent-gradient flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
                 <service.icon className="w-7 h-7 text-accent-foreground" />
               </div>
 
