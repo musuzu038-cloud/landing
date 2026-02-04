@@ -4,9 +4,9 @@ import project3 from "@/assets/projects/project3.png";
 
 const Projects = () => {
   const projects = [
-    { src: project1, alt: "Сборка кухни", title: "Кухня", orderNumber: "Заказ #4827" },
-    { src: project2, alt: "Сборка кровати", title: "Кровать", orderNumber: "Заказ #3156" },
-    { src: project3, alt: "Сборка кухни", title: "Кухня", orderNumber: "Заказ #5093" },
+    { src: project1, alt: "Сборка кухни", title: "Кухня", orderNumber: "Заказ #1024" },
+    { src: project2, alt: "Сборка кровати", title: "Кровать", orderNumber: "Заказ #1025" },
+    { src: project3, alt: "Сборка кухни", title: "Кухня", orderNumber: "Заказ #1026" },
   ];
 
   return (
