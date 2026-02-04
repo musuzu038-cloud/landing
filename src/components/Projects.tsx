@@ -4,9 +4,9 @@ import project3 from "@/assets/projects/project3.png";
 
 const Projects = () => {
   const projects = [
-    { src: project1, alt: "Сборка кухни", title: "Кухня" },
-    { src: project2, alt: "Сборка кровати", title: "Кровать" },
-    { src: project3, alt: "Сборка кухни", title: "Кухня" },
+    { src: project1, alt: "Сборка кухни", title: "Кухня", orderNumber: "Заказ #4827" },
+    { src: project2, alt: "Сборка кровати", title: "Кровать", orderNumber: "Заказ #3156" },
+    { src: project3, alt: "Сборка кухни", title: "Кухня", orderNumber: "Заказ #5093" },
   ];
 
   return (
@@ -36,9 +36,12 @@ const Projects = () => {
                 className="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <h3 className="text-primary-foreground font-semibold text-lg">
-                  {project.title}
-                </h3>
+                <div>
+                  <span className="text-primary-foreground/70 text-sm">{project.orderNumber}</span>
+                  <h3 className="text-primary-foreground font-semibold text-lg">
+                    {project.title}
+                  </h3>
+                </div>
               </div>
             </div>
           ))}
