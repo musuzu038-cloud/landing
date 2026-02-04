@@ -45,6 +45,13 @@ const Footer = () => {
             © {currentYear} Точка Сборки. Все права защищены.
           </div>
         </div>
+
+        {/* Requisites */}
+        <div className="mt-8 pt-6 border-t border-background/20 text-center">
+          <p className="text-background/50 text-sm">
+            ИНН 772385391246 | ОГРН 325774600677132
+          </p>
+        </div>
       </div>
     </footer>
   );
