@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Phone, Mail, MapPin, Clock, Send, RefreshCw } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Send, RefreshCw, MessageCircle } from "lucide-react";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -125,6 +125,12 @@ const Contact = () => {
       label: "Режим работы",
       value: "Ежедневно, 8:00 - 22:00",
       href: null,
+    },
+    {
+      icon: MessageCircle,
+      label: "Telegram",
+      value: "@TochkasborkiTG_bot",
+      href: "https://t.me/TochkasborkiTG_bot",
     },
   ];
 
