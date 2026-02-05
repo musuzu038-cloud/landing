@@ -105,8 +105,8 @@ const Contact = () => {
     {
       icon: Phone,
       label: "Телефон",
-      value: "+7 968 724-42-79",
-      href: "tel:+79687244279",
+      value: "+7 910 525-60-98",
+      href: "tel:+79105256098",
     },
     {
       icon: Mail,
