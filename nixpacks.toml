@@ -1,11 +1,11 @@
 [phases.setup]
-nixPkgs = ["nodejs-18_x", "python3"]
+nixPkgs = ["nodejs_20"]
 
 [phases.install]
-cmds = ["npm ci --legacy-peer-deps"]
+cmds = ["npm ci"]
 
 [phases.build]
 cmds = ["npm run build"]
 
 [start]
-cmd = "npm run preview"
+cmd = "npx serve dist -s -p 5173"
