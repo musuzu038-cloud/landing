@@ -13,7 +13,7 @@ export default defineConfig(({ mode }) => ({
       'tochka-sborki.site',
       'www.tochka-sborki.site',
       'localhost',
-      '127.0.0.1'
+      '0.0.0.0'
     ]
   },
   server: {
