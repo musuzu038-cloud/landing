@@ -5,12 +5,24 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+   preview: {
+    host: true,
+    port: 5173,
+    strictPort: true,
+    allowedHosts: [
+      'tochka-sborki.site',
+      'www.tochka-sborki.site',
+      'localhost',
+      '127.0.0.1'
+    ]
+  },
   server: {
     host: "::",
     port: 8080,
     hmr: {
       overlay: false,
     },
+  
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
